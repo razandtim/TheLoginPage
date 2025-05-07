@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+            background-color: #d2b48c;
+            font-family: 'Cal Sans', sans-serif;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 60px;
+            color: #4a2c2a;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        iframe {
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #4a2c2a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #6f4c46;
+        }
+
+        input[type="url"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Login Page</h1>
+
+        {% if first_name %}
+            <h2>Hello, {{ first_name }}!</h2>
+
+            {% if youtube_link %}
+                <iframe width="560" height="315"
+                        src="{{ youtube_link | replace('watch?v=', 'embed/') }}"
+                        allowfullscreen>
+                </iframe>
+            {% else %}
+                <p>No video selected.</p>
+            {% endif %}
+
+            <form action="/update_video" method="POST">
+                <label for="youtube_link">Change / Add YouTube video:</label><br>
+                <input type="url" name="youtube_link" placeholder="Enter new YouTube link" required>
+                <br><br>
+                <button type="submit" class="button">Update Video</button>
+            </form>
+
+            <br><br>
+            <a href="/logout" class="button">Logout</a>
+
+        {% else %}
+            <h2>Welcome! Please login.</h2>
+            <a href="/login" class="button">Log in</a>
+        {% endif %}
+    </div>
+</body>
+</html>
